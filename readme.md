@@ -10,7 +10,7 @@
 
 This is an example for Bluetooth LE HID device development, which can connect wirelessly to HID hosts including Windows, Mac, Android and iOS systems. Bluetooth SIG defines a HID profile that specifies how a device can support HID services over the Bluetooth LE protocol stack using the Generic Attribute Profile.
 
-This example implements a simple HID keyboard but can be used as a starting point to make any human interface device.
+This example implements a simple HID gamepad but can be used as a starting point to make any human interface device.
 
 ## HID Introduction
 
@@ -41,7 +41,7 @@ It is important to understand how reports can be structured and what are the ide
 ### Generic Access Service
 
 **Appearance characteristic:**  contains a 16-bit number that can be mapped to an icon or string that describes the physical representation of the device during the device discovery procedure.
->This example implements a keyboard and its standard appearance value is **0xC403**.
+>This example implements a gamepad and its standard appearance value is **0xC403**.
 
 ### Device Information Service
 
@@ -74,7 +74,7 @@ The HID Service exposes characteristics required for a HID Device to transfer HI
 **Report Map Characteristic:** All data transferred must be formatted as reports whose structure is defined in this characteristic. The Report Map characteristic is used to define formatting information for Input Report, Output Report, and Feature Report data transferred between a HID Device and HID Host. It is a list of items each containing an item type and its value that provides information on how data can be used and other information regarding physical aspects of the device. The length and content of a Report Map vary depending on the number of data fields required for the device’s report or reports.
 
 This application's Report Map is based on the example given in [Device Class Definition for Human Interface Devices (HID)](https://www.usb.org/sites/default/files/documents/hid1_11.pdf)
-(Appendix C: Keyboard Implementation). It contains the basic 8 byte long keyboard report which will be described in details later.
+(Appendix C: gamepad Implementation). It contains the basic 6 byte long gamepad report which will be described in details later.
 
 | Value      | Item                                               |
 | :--------- |:---------------------------------------------------|
@@ -113,13 +113,15 @@ Detailed description of the item types and the structure of this descriptor can 
  A *Client Characteristic Configuration descriptor* will be included in each Report characteristic definition where the data contained in the Report characteristic value refers to an Input Report.
 
 
-## Keyboard Application
+## gamepad Application
 
-This application has the basic functionality of a generic keyboard which sends "press key" and "release key" information to the host with input reports.
+This application has the basic functionality of a generic gamepad which sends "press key" and "release key" information to the host with input reports.
 
-A usual keyboard report structure is used which contains a reserved byte, a modifier byte and 6 key code bytes (simultaneous keystrokes). In this example, one *Report characteristic* sends reports using notifications triggered by button presses. The used keyboard report format can be seen in the following figure.
+A usual gamepad report structure is used which contains a reserved byte, a modifier byte and 6 key code bytes (simultaneous keystrokes). In this example, one *Report characteristic* sends reports using notifications triggered by button presses. The used gamepad report format can be seen in the following figure.
 
-![Report](images/report.png)
+|Button0-7|Button8-15|X|Y|Z|Xr|
+|:--------|:---------|:--|:--|:--|:--|
+|8bit|8bit|8bit|8bit|8bit|8bit|8bit|
 
 There are two buttons on a WSTK. The functionalities of the buttons are presented in the following table.
 
@@ -132,7 +134,7 @@ The [Simple Button software component](https://docs.silabs.com/gecko-platform/la
  command.
 
 
-An HID Device should include HID Service in the Service UUIDs AD type field of the advertising data. Also, an HID Device should include its Appearance in its Advertising Data. This device is discoverable as a keyboard. By using GATT Configurator, this example uses advertising packets that are automatically filled by the stack.
+An HID Device should include HID Service in the Service UUIDs AD type field of the advertising data. Also, an HID Device should include its Appearance in its Advertising Data. This device is discoverable as a gamepad. By using GATT Configurator, this example uses advertising packets that are automatically filled by the stack.
 
 
 As a simple basis for further development, this example is not energy optimized.
@@ -159,7 +161,7 @@ HID Devices must bond and use LE Security Mode 1, Security Level 2 or 3, both of
 ## Usage
 This section gives a brief description of the general usage.
 
-On the host device, open Bluetooth settings and find the device which is called "HID KB". Host device may ask the user to accept pairing, which is necessary for keyboard operation. After the device is connected and paired successfully, press PB0 to send a character. To activate the Caps lock modifier keep PB1 pressed simultaneously. Open a program on the host device where keystrokes can appear.
+On the host device, open Bluetooth settings and find the device which is called "HID KB". Host device may ask the user to accept pairing, which is necessary for gamepad operation. After the device is connected and paired successfully, press PB0 to send a character. To activate the Caps lock modifier keep PB1 pressed simultaneously. Open a program on the host device where keystrokes can appear.
 
 This example was tested on Android 9, Windows 10 and iOS 13.
 
