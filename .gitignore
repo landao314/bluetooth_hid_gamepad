@@ -1,0 +1,16 @@
+/.pdm
+/.settings
+/.uceditor
+/.vscode
+/.trash
+/autogen
+
+/GNU **
+/vscode-build**
+# /app_properties.c
+# /create_bl*
+imported_project_report.html
+vscode.conf
+**.vscode.**
+**.bak**
+**~
