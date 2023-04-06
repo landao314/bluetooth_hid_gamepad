@@ -31,13 +31,14 @@ component:
 - {id: bluetooth_feature_gatt_server}
 - {id: in_place_ota_dfu}
 - {id: bluetooth_feature_sm}
-- {id: bluetooth_feature_legacy_advertiser}
 - {id: mpu}
+- {id: bluetooth_feature_legacy_advertiser}
 - {id: gatt_configuration}
 - {id: gatt_service_device_information}
 - {id: bluetooth_stack}
 - {id: rail_util_pti}
 - {id: bluetooth_feature_gatt}
+- {id: emlib_iadc}
 - {id: bluetooth_feature_legacy_scanner}
 - {id: app_log}
 - {id: EFR32BG22C224F512GM32}
